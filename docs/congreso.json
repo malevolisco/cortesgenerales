@@ -216,6 +216,18 @@
   "buscar": "bermudez de castro fernandez, jose antonio gp salamanca pp vicepresidente segundo"
  },
  {
+  "nombre": "Bondía Pinós, María Elena",
+  "siglas": "GP",
+  "grupo": "Grupo Parlamentario Popular en el Congreso",
+  "cargo": "",
+  "territorio": "Zaragoza",
+  "detalle": "Zaragoza · PP",
+  "sexo": "Diputada",
+  "foto": "https://www.congreso.es/docu/imgweb/diputados/411_15.jpg",
+  "ficha": "https://www.congreso.es/es/busqueda-de-diputados?p_p_id=diputadomodule&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&mostrarFicha=true&codParlamentario=411&idLegislatura=XV",
+  "buscar": "bondia pinos, maria elena gp zaragoza pp "
+ },
+ {
   "nombre": "Borrego Cortés, Isabel María",
   "siglas": "GP",
   "grupo": "Grupo Parlamentario Popular en el Congreso",
@@ -1042,18 +1054,6 @@
   "foto": "https://www.congreso.es/docu/imgweb/diputados/215_15.jpg",
   "ficha": "https://www.congreso.es/es/busqueda-de-diputados?p_p_id=diputadomodule&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&mostrarFicha=true&codParlamentario=215&idLegislatura=XV",
   "buscar": "navarro lacoba, carmen gp albacete pp secretaria cuarta"
- },
- {
-  "nombre": "Navarro López, Pedro",
-  "siglas": "GP",
-  "grupo": "Grupo Parlamentario Popular en el Congreso",
-  "cargo": "",
-  "territorio": "Zaragoza",
-  "detalle": "Zaragoza · PP",
-  "sexo": "Diputado",
-  "foto": "https://www.congreso.es/docu/imgweb/diputados/250_15.jpg",
-  "ficha": "https://www.congreso.es/es/busqueda-de-diputados?p_p_id=diputadomodule&p_p_lifecycle=0&p_p_state=normal&p_p_mode=view&mostrarFicha=true&codParlamentario=250&idLegislatura=XV",
-  "buscar": "navarro lopez, pedro gp zaragoza pp "
  },
  {
   "nombre": "Noriega Gómez, Javier",
