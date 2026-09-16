@@ -1,10 +1,21 @@
 name: Actualizar trombinoscopios
 
+# IMPORTANTE: los runners de GitHub reciben 403 de senado.es (Akamai bloquea los
+# rangos de centro de datos). Comprobado en la ejecucion #5. Por eso aqui solo se
+# generan las paginas del Congreso, que si son alcanzables.
+#
+# Las tres del Senado se generan desde tu maquina y se suben:
+#     python scripts/build.py senado diputacion_permanente comisiones_senado
+#     git add docs/ && git commit -m "Senado" && git push
+#
+# El indice detecta que ficheros existen, asi que las paginas subidas a mano
+# aparecen enlazadas con normalidad y no se pisan en cada ejecucion.
+
 on:
   schedule:
-    # Lunes a las 06:15 UTC (07:15 en invierno, 08:15 en verano, hora peninsular)
+    # Lunes a las 06:15 UTC
     - cron: "15 6 * * 1"
-  workflow_dispatch:        # permite lanzarlo a mano desde la pestana Actions
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
@@ -12,7 +23,7 @@ on:
       - ".github/workflows/actualizar.yml"
 
 permissions:
-  contents: write           # para commitear docs/
+  contents: write
   pages: write
   id-token: write
 
@@ -39,13 +50,12 @@ jobs:
         run: |
           echo "Congreso:"; curl -sS -o /dev/null -w "  HTTP %{http_code}\n" \
             -A "Mozilla/5.0" https://www.congreso.es/es/busqueda-de-diputados || true
-          echo "Senado:";   curl -sS -o /dev/null -w "  HTTP %{http_code}\n" \
+          echo "Senado (se espera 403 desde los runners):"
+          curl -sS -o /dev/null -w "  HTTP %{http_code}\n" \
             -A "Mozilla/5.0" https://www.senado.es/web/index.html || true
 
-      - name: Generar los trombinoscopios
-        id: generar
-        continue-on-error: true
-        run: python scripts/build.py
+      - name: Generar las paginas del Congreso
+        run: python scripts/build.py congreso comisiones_congreso
 
       - name: Commitear los cambios en docs/
         run: |
@@ -55,7 +65,8 @@ jobs:
           if git diff --staged --quiet; then
             echo "Sin cambios que commitear."
           else
-            git commit -m "Actualizacion automatica de los trombinoscopios ($(date +%d/%m/%Y))"
+            git commit -m "Actualizacion automatica del Congreso ($(date +%d/%m/%Y))"
+            git pull --rebase origin main
             git push
           fi
 
@@ -64,16 +75,8 @@ jobs:
         with:
           path: docs
 
-      - name: Fallar si alguna camara no se pudo generar
-        if: steps.generar.outcome == 'failure'
-        run: |
-          echo "::error::Alguna de las camaras no se ha podido actualizar."
-          echo "Revisa el log del paso 'Generar los trombinoscopios'."
-          exit 1
-
   publicar:
     needs: generar
-    if: always()
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -82,4 +85,3 @@ jobs:
       - name: Publicar en GitHub Pages
         id: despliegue
         uses: actions/deploy-pages@v4
-
